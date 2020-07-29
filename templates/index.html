@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>hello</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        console.log("hello")
+    </script>
+</head>
+<body>
+
+<a href="computers/query_computer">computers</a>
+<a href="models/query_model">models</a>
+<a href="passwords/que_dict">passwords</a>
+
+<h1>add computer</h1>
+<form action="computers/add_computer" method="post">
+    name:<input name="name" type="text"/>
+    host:<input name="host" type="text">
+    <input type="submit">
+</form>
+
+<h1>add model</h1>
+<form action="models/add_model" method="post">
+    name:<input name="name" type="text"/>
+    type:<input name="type" type="text">
+    location:<input name="location" type="text">
+    <input type="submit">
+</form>
+
+<h1>add dict</h1>
+<form action="passwords/add_dict" method="post">
+    name:<input name="name" type="text"/>
+    type:<input name="type" type="text">
+    location:<input name="location" type="text">
+    <input type="submit">
+</form>
+
+</body>
+</html>
