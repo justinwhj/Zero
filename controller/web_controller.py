@@ -8,7 +8,7 @@ app = Flask(__name__,template_folder="../templates",static_folder="../static")
 
 @app.route("/")
 def hello(name=None):
-    return render_template("index_0.html",name=name)
+    return render_template("index.html",name=name)
 
 @app.route("/computers/add_computer",methods=["POST"])
 def radd_computer():
@@ -47,12 +47,12 @@ def rfind_computer():
     if int(id)!=0:
         old_computer = query_one_computer(id)
         action = "modify"
-    return render_template("computer_modify_0.html",old_computer=old_computer,action=action)
+    return render_template("computer_modify.html",old_computer=old_computer,action=action)
 
 @app.route("/computers/query_computer",methods=["POST","GET"])
 def rquery_computer():
     computers = query_all_computer()
-    return render_template("computer_0.html",computers=computers)
+    return render_template("computer_list.html",computers=computers)
 
 @app.route("/models/add_model",methods=["POST"])
 def radd_model():
@@ -96,12 +96,12 @@ def rfind_model():
         # 更新模型
         old_model = query_one_model(id)
         action = "modify"
-    return render_template("model_modify_0.html",old_model=old_model,action=action)
+    return render_template("model_modify.html",old_model=old_model,action=action)
 
 @app.route("/models/query_model",methods=["POST","GET"])
 def rque_model():
     models = query_all_models()
-    return render_template("model_0.html",models=models)
+    return render_template("model_list.html",models=models)
 
 @app.route("/passwords/add_dict",methods=["POST"])
 def radd_dict():
@@ -144,12 +144,12 @@ def rfind_dict():
     if int(id)!=0:
         old_dict = query_one_pswd(id)
         action = "mod"
-    return render_template("password_modify_0.html",old_dict=old_dict,action=action)
+    return render_template("password_modify.html",old_dict=old_dict,action=action)
 
 @app.route("/passwords/que_dict",methods=["POST","GET"])
 def rque_dict():
     passwords = query_all_pswd()
-    return render_template("password_0.html",passwords=passwords)
+    return render_template("password_list.html",passwords=passwords)
 
 
 if __name__=="__main__":

@@ -1,21 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-<a href="../">首页</a>
-
-<h1>modify model</h1>
-<form action="../models/modify_model" method="post">
-    <input name="id" value="{{old_model.id}}" type="text" style="display:none">
-    name:<input name="name" value="{{old_model.name}}" type="text"/>
-    type:<input name="type" value="{{old_model.type}}" type="text">
-    location:<input name="location" value="{{old_model.location}}" type="text">
-    <input type="submit">
-</form>
-
-</body>
-</html>
+{% extends "template.html" %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Model {{action}}</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="../models/{{action}}_model" method="post">
+                <div class="card-body">
+                  <input  type="text" name="id" style="display:none" value="{{old_model.id}}"/>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Model Name</label>
+                    <input type="text" name="name" value="{{old_model.name}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Model Type</label>
+                    <input type="text" name="type" value="{{old_model.type}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                    <div class="form-group">
+                    <label for="exampleInputPassword1">Model Location</label>
+                    <input type="text" name="location" value="{{old_model.location}}" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+<!-- /.content-wrapper -->
+{% endblock %}

@@ -1,20 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-<a href="../">首页</a>
-
-<h1>modify computer</h1>
-<form action="../computers/modify_computer" method="post">
-    <input name="id" value="{{old_computer.id}}" type="text" style="display:none">
-    name:<input name="name" value="{{old_computer.name}}" type="text"/>
-    host:<input name="host" value="{{old_computer.host}}" type="text">
-    <input type="submit">
-</form>
-
-</body>
-</html>
+{% extends "template.html" %}
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+    </div>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+            <!-- general form elements -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Device {{action}}</h3>
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" action="../computers/{{action}}_computer" method="post">
+                <div class="card-body">
+                  <input  type="text" name="id" style="display:none" value="{{old_computer.id}}"/>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Device Name</label>
+                    <input type="text" name="name" value="{{old_computer.name}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Host IP</label>
+                    <input type="text" name="host" value="{{old_computer.host}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+<!-- /.content-wrapper -->
+{% endblock %}
