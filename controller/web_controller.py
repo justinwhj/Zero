@@ -6,10 +6,32 @@ from model.passwords import *
 
 app = Flask(__name__,template_folder="../templates",static_folder="../static")
 
+###############################################################################################################
+#-------------------------------------------------用户管理模块-------------------------------------------------#
+###############################################################################################################
 @app.route("/")
-def hello(name=None):
-    return render_template("index.html",name=name)
+def hello():
+    return render_template("login.html")
 
+@app.route("/user/login",methods=["POST"])
+def login():
+    return redirect(url_for("rque_dict"))
+
+@app.route("/user/register",methods=["GET"])
+def register():
+    return render_template("register.html")
+
+@app.route("/user/forget",methods=["GET"])
+def forget():
+    return render_template("forgot-password.html")
+
+@app.route("/user/recover",methods=["GET","POST"])
+def recover():
+    return render_template("recover-password.html")
+
+###############################################################################################################
+#-------------------------------------------------设备管理模块-------------------------------------------------#
+###############################################################################################################
 @app.route("/computers/add_computer",methods=["POST"])
 def radd_computer():
     computer = {
@@ -54,6 +76,9 @@ def rquery_computer():
     computers = query_all_computer()
     return render_template("computer_list.html",computers=computers)
 
+###############################################################################################################
+#-------------------------------------------------模型管理模块-------------------------------------------------#
+###############################################################################################################
 @app.route("/models/add_model",methods=["POST"])
 def radd_model():
     model = {
@@ -103,6 +128,9 @@ def rque_model():
     models = query_all_models()
     return render_template("model_list.html",models=models)
 
+###############################################################################################################
+#-------------------------------------------------口令管理模块-------------------------------------------------#
+###############################################################################################################
 @app.route("/passwords/add_dict",methods=["POST"])
 def radd_dict():
     password = {
@@ -151,6 +179,10 @@ def rque_dict():
     passwords = query_all_pswd()
     return render_template("password_list.html",passwords=passwords)
 
+@app.route("/passwords/analyze_dict",methods=["POST","GET"])
+def ranalyze_dict():
+    return render_template("password_analysis.html")
+
 
 if __name__=="__main__":
-    app.run(host="127.0.0.1",port=80,debug=True)
+    app.run(host="127.0.0.1",port=61116,debug=True)
