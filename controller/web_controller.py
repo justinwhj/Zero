@@ -1,10 +1,17 @@
+import json
+import os
+
 from flask import Flask,render_template,request,redirect,url_for
+from werkzeug.utils import secure_filename
 
 from model.computer import *
 from model.model import *
 from model.passwords import *
 
+import service.password_service as pass_service
+
 app = Flask(__name__,template_folder="../templates",static_folder="../static")
+root_path = os.path.join(os.path.dirname(__file__) , os.path.pardir)
 
 ###############################################################################################################
 #-------------------------------------------------用户管理模块-------------------------------------------------#
@@ -133,10 +140,14 @@ def rque_model():
 ###############################################################################################################
 @app.route("/passwords/add_dict",methods=["POST"])
 def radd_dict():
+    f = request.files['pass_txt']
+    upload_path = os.path.join(root_path, 'data\\passwords', secure_filename(f.filename))  # 注意：没有的文件夹一定要先创建，不然会提示没有该路径
+    f.save(upload_path)
+
     password = {
         "name": request.values.get("name"),
         "type": request.values.get("type"),
-        "location": request.values.get("location")
+        "location": secure_filename(f.filename),
     }
     add_pswd(password)
     return redirect(url_for("rque_dict"))
@@ -181,7 +192,18 @@ def rque_dict():
 
 @app.route("/passwords/analyze_dict",methods=["POST","GET"])
 def ranalyze_dict():
-    return render_template("password_analysis.html")
+    id = request.values.get("id")
+    dict_to_analyze = query_one_pswd(id)
+    path = "\\data\\passwords\\"+dict_to_analyze["location"]
+
+    analysis = pass_service.analyze_single_dict(path)
+    return render_template("password_analysis2.html",test="hello test",data=json.dumps(analysis))
+
+@app.route("/passwords/compare_dict",methods=["POST","GET"])
+def rcompare_dict():
+    id1 = request.values.get("txt1")
+    id2 = request.values.get("txt2")
+    return render_template("password_compare.html", test="hello test", data=json.dumps({}))
 
 
 if __name__=="__main__":

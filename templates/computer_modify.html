@@ -9,8 +9,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-            <!-- general form elements -->
-            <div class="card card-primary">
+           <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Device {{action}}</h3>
               </div>
@@ -21,12 +20,20 @@
                   <input  type="text" name="id" style="display:none" value="{{old_computer.id}}"/>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Device Name</label>
-                    <input type="text" name="name" value="{{old_computer.name}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <input type="text" name="name" value="{{old_computer.name}}" class="form-control" id="exampleInputEmail1" placeholder="name your device">
                   </div>
+                   <!-- IP mask -->
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Host IP</label>
-                    <input type="text" name="host" value="{{old_computer.host}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <label>Host IP:</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-laptop"></i></span>
+                      </div>
+                      <input type="text" name="host" value="{{old_computer.host}}" class="form-control" data-inputmask-inputformat="_._." data-inputmask="'alias': 'ip'" data-mask>
+                    </div>
+                    <!-- /.input group -->
                   </div>
+                <!-- /.form group -->
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -44,4 +51,13 @@
     <!-- /.content -->
   </div>
 <!-- /.content-wrapper -->
+{% endblock %}
+
+{% block script %}
+<!-- InputMask -->
+<script src="/static/plugins/moment/moment.min.js"></script>
+<script src="/static/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+<script>
+   $('[data-mask]').inputmask()
+</script>
 {% endblock %}
