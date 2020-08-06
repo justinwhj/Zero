@@ -2,6 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Expires" CONTENT="0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>PassUtils</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -29,6 +32,15 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="../static/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="../static/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="../static/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="../static/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="../static/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+   <!-- Ion Slider -->
+  <link rel="stylesheet" href="../static/plugins/ion-rangeslider/css/ion.rangeSlider.min.css">
+  <!-- bootstrap slider -->
+  <link rel="stylesheet" href="../static/plugins/bootstrap-slider/css/bootstrap-slider.min.css">
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -41,10 +53,22 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" role="button">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" role="button">Contact</a>
+      </li>
     </ul>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+          <a class="nav-link" href="#" role="button">Warning</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="#" role="button">Quit</a>
+      </li>
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -54,7 +78,7 @@
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
       <img src="../static/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
+           style="opacity: .8;">
       <span class="brand-text font-weight-light">PassUtils</span>
     </a>
 
@@ -65,7 +89,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -77,18 +101,18 @@
               <li class="nav-item">
                 <a href="../computers/query_computer" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Device List</p>
+                  <p>Manage</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./index2.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Device Analysis</p>
+                  <p>Employ</p>
                 </a>
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
@@ -96,22 +120,17 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview ">
               <li class="nav-item">
                 <a href="../models/query_model" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Model List</p>
+                  <p>Manage</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="pages/charts/flot.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Model Impl</p>
-                </a>
-              </li><li class="nav-item">
-                <a href="pages/charts/flot.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Model Train</p>
+                  <p>Details</p>
                 </a>
               </li>
             </ul>
@@ -128,13 +147,13 @@
               <li class="nav-item active">
                 <a href="../passwords/que_dict" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Password List</p>
+                  <p>Manage</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="pages/forms/editors.html" class="nav-link">
+                <a href="../passwords/password_generate" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Password Generate</p>
+                  <p>Generate</p>
                 </a>
               </li>
             </ul>
@@ -200,9 +219,20 @@
 <script src="../static/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="../static/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 <script src="../static/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<!-- Select2 -->
+<script src="../static/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="../static/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="../static/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- Ion Slider -->
+<script src="../static/plugins/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
+<!-- Bootstrap slider -->
+<script src="../static/plugins/bootstrap-slider/bootstrap-slider.min.js"></script>
 <!-- page script -->
 <script>
   $(function () {
+    bsCustomFileInput.init();
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": false,

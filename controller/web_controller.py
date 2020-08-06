@@ -205,6 +205,23 @@ def rcompare_dict():
     id2 = request.values.get("txt2")
     return render_template("password_compare.html", test="hello test", data=json.dumps({}))
 
+@app.route("/passwords/password_generate",methods=["POST","GET"])
+def rgenerate_dict():
+    return render_template("password_generate.html")
+###############################################################################################################
+#-------------------------------------------------公共响应模块-------------------------------------------------#
+###############################################################################################################
+@app.route("/utils/find_path",methods=["POST"])
+def rfind_path():
+    path = request.values.get("path")
+    paths = os.listdir(root_path + "\\data\\passwords\\"+path)
+    res = []
+    for i in range(len(paths)):
+        res.append(os.path.join(path,paths[i]))
+    return json.dumps(res)
+
 
 if __name__=="__main__":
     app.run(host="127.0.0.1",port=61116,debug=True)
+
+

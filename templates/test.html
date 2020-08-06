@@ -1,0 +1,69 @@
+{% extends "template.html" %}
+{% block body %}
+<div id="v1">
+yee
+</div>
+<div id="v2">
+yesssss
+</div>
+
+<input type="text" id="txt_ide" list="myid" />
+<datalist id="myid" style="display:block;float:right">
+	<select>
+		<option>夜班</option>
+		<option>白班</option>
+	</select>
+</datalist>
+
+<div style="position:relative;">
+      <span style="margin-left:100px;width:18px;overflow:hidden;">
+       <select id="DanWei" style="width:235px;margin-left:-86px;height:31px;" οnchange="danwei()">
+             <option value="m3/s" selected>m3/s</option>
+             <option value="mm">mm</option>
+             <option value="℃">℃</option>
+             <option value="KV">KV</option>
+        </select>
+        </span>
+     <input type="text" id="units" name="units" style="width: 215px;margin-left: -239px;height: 31px;color:#000;">
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+     //用于单位选择更换赋值给文本框
+     function danwei(){
+          var text=$("#DanWei").val();
+          $("#units").val(text);
+     }
+</script>
+
+<script type="text/javascript">
+    $(function(){
+     var req = $("#v1").val()
+     var ch = $("#v2")
+     params = ""
+     $.ajax({
+            type:"post",
+            url : "utils/find_path",
+            data:{"path":req},
+            dataType:"json",
+            context:document.body,
+            success:function(data){
+                console.log("yes")
+                var dataObj = eval(data)
+                if (data==null){
+                    console.log("null")
+                }else{
+                    console.log(data)
+                    console.log(dataObj)
+                    for(var i=0;i<dataObj.length;i++){
+                        var item = dataObj[i]
+                        console.log(item)
+                        ch.append(item)
+                    }
+                }
+            }
+      })
+    })
+</script>
+{% endblock %}

@@ -55,5 +55,9 @@ def compare_two_dicts(txt_1,txt_2):
 
 
 if __name__ == "__main__":
-    result= analyze_single_dict()
-    print(result)
+    path = ""
+    paths = os.listdir(root_path + "\\data\\passwords\\" + path)
+    print(paths)
+
+    # result= analyze_single_dict()
+    # print(result)
