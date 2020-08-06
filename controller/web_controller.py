@@ -88,10 +88,14 @@ def rquery_computer():
 ###############################################################################################################
 @app.route("/models/add_model",methods=["POST"])
 def radd_model():
+    f = request.files['model_file']
+    upload_path = os.path.join(root_path, 'data\\models', secure_filename(f.filename))  # 注意：没有的文件夹一定要先创建，不然会提示没有该路径
+    f.save(upload_path)
+
     model = {
         "name":request.values.get("name"),
         "type":request.values.get("type"),
-        "location":request.values.get("location")
+        "location":secure_filename(f.filename)
     }
     add_model(model)
     return redirect(url_for("rque_model"))
@@ -194,16 +198,17 @@ def rque_dict():
 def ranalyze_dict():
     id = request.values.get("id")
     dict_to_analyze = query_one_pswd(id)
-    path = "\\data\\passwords\\"+dict_to_analyze["location"]
-
+    path = dict_to_analyze["location"]
     analysis = pass_service.analyze_single_dict(path)
-    return render_template("password_analysis2.html",test="hello test",data=json.dumps(analysis))
+
+    return render_template("password_analysis2.html",test="hello test",data=json.dumps(analysis),passwords=analysis["passwords"])
 
 @app.route("/passwords/compare_dict",methods=["POST","GET"])
 def rcompare_dict():
-    id1 = request.values.get("txt1")
-    id2 = request.values.get("txt2")
-    return render_template("password_compare.html", test="hello test", data=json.dumps({}))
+    pass1 = query_one_pswd(request.values.get("txt1"))["location"]
+    pass2 = query_one_pswd(request.values.get("txt2"))["location"]
+    result1,result2,analyze = pass_service.compare_two_dicts(pass1,pass2)
+    return render_template("password_analysis3.html", data1=json.dumps(result1),data2=json.dumps(result2),analyze=analyze)
 
 @app.route("/passwords/password_generate",methods=["POST","GET"])
 def rgenerate_dict():
@@ -213,13 +218,20 @@ def rgenerate_dict():
 ###############################################################################################################
 @app.route("/utils/find_path",methods=["POST"])
 def rfind_path():
+    type = request.values.get("type")
     path = request.values.get("path")
-    paths = os.listdir(root_path + "\\data\\passwords\\"+path)
-    res = []
-    for i in range(len(paths)):
-        res.append(os.path.join(path,paths[i]))
-    return json.dumps(res)
-
+    if type==1:
+        paths = os.listdir(root_path + "\\data\\passwords\\"+path)
+        res = []
+        for i in range(len(paths)):
+            res.append(os.path.join(path,paths[i]))
+        return json.dumps(res)
+    else:
+        paths = os.listdir(root_path + "\\data\\models\\" + path)
+        res = []
+        for i in range(len(paths)):
+            res.append(os.path.join(path, paths[i]))
+        return json.dumps(res)
 
 if __name__=="__main__":
     app.run(host="127.0.0.1",port=61116,debug=True)

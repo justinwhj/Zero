@@ -16,21 +16,41 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" action="../models/{{action}}_model" method="post">
+              <form role="form" enctype='multipart/form-data' action="../models/{{action}}_model" method="post">
                 <div class="card-body">
                   <input  type="text" name="id" style="display:none" value="{{old_model.id}}"/>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Model Name</label>
-                    <input type="text" name="name" value="{{old_model.name}}" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <input type="text" name="name" value="{{old_model.name}}" class="form-control" id="exampleInputEmail1" placeholder="">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Model Type</label>
-                    <input type="text" name="type" value="{{old_model.type}}" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="text" name="type" value="{{old_model.type}}" class="form-control" id="exampleInputPassword1" placeholder="">
                   </div>
-                    <div class="form-group">
-                    <label for="exampleInputPassword1">Model Location</label>
-                    <input type="text" name="location" value="{{old_model.location}}" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                   <div class="form-group">
+                    <label for="exampleInputPassword1">Location</label>
+                    <div class="input-group">
+                         <div class="input-group-prepend">
+                             <span class="input-group-text">Path</span>
+                         </div>
+                         <input list="paths"  type="text" name="txt2" value="{{old_model.location}}" class="form-control" id="input_path" placeholder="" onchange="load_path()">
+                         <datalist id="paths">
+                           <select id="select_path">
+                           </select>
+                         </datalist>
+                    </div>
                   </div>
+                  {% if action == 'add'%}
+                  <div class="form-group">
+                    <label for="exampleInputFile">Model file</label>
+                    <div class="input-group">
+                      <div class="custom-file">
+                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        <input type="file" name="model_file" class="custom-file-input" id="exampleInputFile">
+                      </div>
+                    </div>
+                  </div>
+                  {% endif %}
                   <div class="form-check">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
                     <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -48,4 +68,38 @@
     <!-- /.content -->
   </div>
 <!-- /.content-wrapper -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+     function load_path(){
+         console.log("hello")
+         var req = $("#input_path").val()
+         var paths = $("#select_path")
+         paths.innerHTML =''
+          $.ajax({
+            type:"post",
+            url : "../utils/find_path",
+            data:{"path":req,"type":2},
+            dataType:"json",
+            context:document.body,
+            success:function(data){
+                var dataObj = eval(data)
+                if (data==null){
+                    console.log("null")
+                }else{
+                    for(var i=0;i<dataObj.length;i++){
+                        var item = dataObj[i]
+                        var item_str ="<option>"+item+"</option>"
+                        console.log(item_str)
+                        paths.append(item_str)
+                    }
+                }
+            }
+      })
+     }
+     $(function(){
+        load_path()
+    })
+</script>
 {% endblock %}
